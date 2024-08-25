@@ -6,30 +6,42 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
     
-    let list1: [GitModel] = [GitModel(name: "a"),
-                             GitModel(name: "b"),
-                             GitModel(name: "c"),]
-    
-    let list2: [GitModel] = [GitModel(name: "d"),
-                             GitModel(name: "e"),
-                             GitModel(name: "f"),]
+    let vm = HomeViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
+        setupScreen()
         
+    }
+    
+    func setupScreen(){
         homeView.tableGit.dataSource = self
         homeView.tableGit.delegate = self
         
         homeView.segmentedControl.addTarget(self, action: #selector(updateTableView), for: .valueChanged)
         
-        title = "Github"
+        homeView.activityIndicator.startAnimating()
+        
+        title = "Repositórios iOS"
         view = homeView
     }
+    
+    func loadData(){
+        vm.getRepos {
+            DispatchQueue.main.async {
+                self.updateTableView()
+                self.homeView.activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
     @objc
     func updateTableView(){
         homeView.tableGit.reloadData()
@@ -43,9 +55,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch homeView.segmentedControl.selectedSegmentIndex {
         case 0:
-            rows = list1.count
+            rows = vm.items.count
         case 1:
-            rows = list2.count
+            rows = 0
         default:
             break
         }
@@ -55,12 +67,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "GitCell", for: indexPath) as! GitTableViewCell
+        
+        let itemCell: Item = vm.items[indexPath.row]
 
         switch homeView.segmentedControl.selectedSegmentIndex {
         case 0:
-            cell.titleLabel.text = list1[indexPath.row].name
+            cell.repoName.text = itemCell.name
+            cell.userName.text = itemCell.owner.login
+            cell.profilePic.kf.indicatorType = .activity
+            cell.profilePic.kf.setImage(with: URL(string: itemCell.owner.avatarURL), placeholder: nil, options: [.transition(.fade(0.5))])
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .none
         case 1:
-            cell.titleLabel.text = list2[indexPath.row].name
+            cell.repoName.text = ""
         default:
             break
         }
@@ -68,11 +87,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 80
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(MoreInfoViewController(), animated: true)
+        let second = MoreInfoViewController()
+        second.repo = vm.items[indexPath.row]
+        navigationController?.pushViewController(second, animated: true)
     }
 }
 

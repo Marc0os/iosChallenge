@@ -9,13 +9,19 @@ import UIKit
 
 class HomeView: UIView, ViewCode {
     
-    let items = ["item1", "item2"]
+    let items = ["Todos", "Salvos"]
+    
+    let normalAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: UIColor.white
+    ]
     
     // MARK: - UI Components
     
     lazy var segmentedControl: UISegmentedControl = {
         let view = UISegmentedControl(items: items)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.selectedSegmentTintColor = .black
+        view.setTitleTextAttributes(normalAttributes, for: .selected)
         view.selectedSegmentIndex = 0
         return view
     }()
@@ -23,23 +29,18 @@ class HomeView: UIView, ViewCode {
     lazy var tableGit: UITableView = {
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         view.register(GitTableViewCell.self, forCellReuseIdentifier: "GitCell")
         
         return view
     }()
         
-    lazy var label: UILabel = {
-        let view = UILabel()
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "AaaaAAAAAAAAAAAA"
-        view.textAlignment = .center
-        view.textColor = .black
-        view.font = .systemFont(ofSize: 14, weight: .regular)
-        
+        view.style = .medium
         return view
     }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
@@ -52,10 +53,10 @@ class HomeView: UIView, ViewCode {
     // MARK: - Constraints
     
     func setupHierarchy() {
-        backgroundColor = .green
+        backgroundColor = .white
         addSubview(segmentedControl)
         addSubview(tableGit)
-//        addSubview(label)
+        addSubview(activityIndicator)
     }
     
     func setupConstraints() {
@@ -66,11 +67,9 @@ class HomeView: UIView, ViewCode {
             tableGit.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             tableGit.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tableGit.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            tableGit.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
-//            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        
-        
+            tableGit.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: tableGit.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableGit.centerYAnchor)
         ])
     }
     
