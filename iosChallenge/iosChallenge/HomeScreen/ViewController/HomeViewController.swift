@@ -11,10 +11,9 @@ import Kingfisher
 class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
-    
     let vm = HomeViewModel()
-    
     private var isLoading = false
+    private var dataTask: URLSessionDataTask?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +39,7 @@ class HomeViewController: UIViewController {
     func loadData(){
         vm.getReposCoreData()
         isLoading = true
-        vm.getRepos(page: vm.currentPage) {
+        dataTask = vm.getRepos(page: vm.currentPage) {
             DispatchQueue.main.async {
                 self.updateTableView()
                 self.homeView.activityIndicator.stopAnimating()
@@ -52,6 +51,11 @@ class HomeViewController: UIViewController {
     @objc
     func updateTableView(){
         homeView.tableGit.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dataTask?.cancel()
     }
     
     deinit {

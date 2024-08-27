@@ -12,10 +12,10 @@ class MoreInfoViewModel {
     
     private let service = DAOService()
     
-    func getPulls (owner: String, repository: String, completion: @escaping () -> Void){
+    func getPulls (owner: String, repository: String, completion: @escaping () -> Void) -> URLSessionDataTask? {
         let urlString = "/repos/\(owner)/\(repository)/pulls"
         
-        NetworkManager.shared.fetchPullsData(urlString: urlString) { pulls, error in
+        return NetworkManager.shared.fetchPullsData(urlString: urlString) { pulls, error in
             if let pulls {
                 self.pulls = pulls
                 completion()

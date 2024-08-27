@@ -9,11 +9,11 @@ import UIKit
 import Kingfisher
 
 class MoreInfoViewController: UIViewController {
+    
     private let moreInfoView = MoreInfoView()
-    
     let vm = MoreInfoViewModel()
-    
     var repo: Item? = nil
+    private var dataTask: URLSessionDataTask?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class MoreInfoViewController: UIViewController {
     }
     
     func loadData(){
-        vm.getPulls(owner: repo!.owner.login, repository: repo!.name) {
+        dataTask = vm.getPulls(owner: repo!.owner.login, repository: repo!.name) {
             DispatchQueue.main.async {
                 self.moreInfoView.mainView.isHidden = false
                 self.moreInfoView.repoName.text = self.repo?.name
@@ -108,7 +108,11 @@ class MoreInfoViewController: UIViewController {
     func notifyChanges(){
         NotificationCenter.default.post(name: Notification.Name("DatabaseChanged"), object: nil)
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dataTask?.cancel()
+    }
 }
 
 extension MoreInfoViewController: UITableViewDelegate, UITableViewDataSource{

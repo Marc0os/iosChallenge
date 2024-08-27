@@ -13,9 +13,9 @@ class NetworkManager{
     
     let basicURL = "https://api.github.com"
     
-    func fetchReposData(urlString: String, completion: @escaping ([Item]?, String?) -> Void){
+    func fetchReposData(urlString: String, completion: @escaping ([Item]?, String?) -> Void) -> URLSessionDataTask? {
         
-        guard let url = URL(string: basicURL + urlString) else { return }
+        guard let url = URL(string: basicURL + urlString) else { return nil }
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             
@@ -28,11 +28,12 @@ class NetworkManager{
             }
         }
         task.resume()
+        return task
     }
     
-    func fetchPullsData(urlString: String, completion: @escaping ([Pull]?, String?) -> Void){
+    func fetchPullsData(urlString: String, completion: @escaping ([Pull]?, String?) -> Void) -> URLSessionDataTask? {
         
-        guard let url = URL(string: basicURL + urlString) else { return }
+        guard let url = URL(string: basicURL + urlString) else { return nil }
         
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             
@@ -50,5 +51,6 @@ class NetworkManager{
             }
         }
         task.resume()
+        return task
     }
 }

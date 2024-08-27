@@ -13,11 +13,11 @@ class HomeViewModel {
     let service = DAOService()
     var currentPage = 1
     
-    func getRepos (page: Int = 1,completion: @escaping () -> Void){
+    func getRepos (page: Int = 1,completion: @escaping () -> Void) -> URLSessionDataTask? {
         
         let urlString = "/search/repositories?q=language:Swift&sort=stars&page=\(page)"
         
-        NetworkManager.shared.fetchReposData(urlString: urlString) { items, error in
+        return NetworkManager.shared.fetchReposData(urlString: urlString) { items, error in
             if let items {
                 
                 if page == 1{
