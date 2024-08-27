@@ -66,7 +66,7 @@ class MoreInfoView: UIView, ViewCode {
         let view = UIStackView(arrangedSubviews: [repoName, fullName])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
-        view.spacing = 4
+        view.spacing = 2
         return view
     }()
     
@@ -419,9 +419,13 @@ class MoreInfoView: UIView, ViewCode {
             mainView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             mainView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             
+            saveButton.widthAnchor.constraint(equalToConstant: 90),
+            deleteButton.widthAnchor.constraint(equalToConstant: 90),
+            
             headerStack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             headerStack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
             headerStack.topAnchor.constraint(equalTo: mainView.topAnchor),
+            headerStack.heightAnchor.constraint(equalToConstant: 45),
 //            repoName.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
 //            fullName.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
 //            fullName.topAnchor.constraint(equalTo: repoName.bottomAnchor, constant: 4),
@@ -471,21 +475,10 @@ class MoreInfoView: UIView, ViewCode {
             placeholder.topAnchor.constraint(equalTo: pullsLabel.bottomAnchor, constant: 16),
             placeholder.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            
-            
-            
-//            saveButton.centerYAnchor.constraint(equalTo: repoName.centerYAnchor),
-//            saveButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            saveButton.widthAnchor.constraint(equalToConstant: 90),
-            saveButton.heightAnchor.constraint(equalToConstant: 40),
-            deleteButton.widthAnchor.constraint(equalToConstant: 90),
-            deleteButton.heightAnchor.constraint(equalToConstant: 40),
-            
-            
-            
             activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
+        repoName.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
 }

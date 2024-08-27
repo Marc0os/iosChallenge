@@ -9,10 +9,13 @@ import UIKit
 
 class HomeView: UIView, ViewCode {
     
-    let items = ["Todos", "Salvos"]
+    let items = ["All", "Saved"]
     
-    let normalAttributes: [NSAttributedString.Key: Any] = [
+    let selectedAttributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: UIColor.white
+    ]
+    let normalAttributes: [NSAttributedString.Key: Any] = [
+        .foregroundColor: UIColor.black
     ]
     
     // MARK: - UI Components
@@ -21,7 +24,8 @@ class HomeView: UIView, ViewCode {
         let view = UISegmentedControl(items: items)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.selectedSegmentTintColor = .black
-        view.setTitleTextAttributes(normalAttributes, for: .selected)
+        view.setTitleTextAttributes(selectedAttributes, for: .selected)
+        view.setTitleTextAttributes(normalAttributes, for: .normal)
         view.selectedSegmentIndex = 0
         return view
     }()

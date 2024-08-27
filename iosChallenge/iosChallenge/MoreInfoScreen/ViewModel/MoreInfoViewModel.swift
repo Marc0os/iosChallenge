@@ -9,6 +9,7 @@ import Foundation
 
 class MoreInfoViewModel {
     var pulls = [Pull]()
+    var pullsCoreData = [Pull]()
     
     private let service = DAOService()
     
@@ -23,8 +24,12 @@ class MoreInfoViewModel {
         }
     }
     
-    func createRepo (item: Item) {
-        service.createRepo(item: item)
+    func getPullsCoreData(repoID: Int32){
+        pullsCoreData = service.getPullsByRepoID(repoID: repoID)!
+    }
+    
+    func createRepo (item: Item, pulls: [Pull]) {
+        service.createRepo(item: item, pulls: pulls)
     }
     
     func existRepo (id: Int32) -> Bool {

@@ -31,7 +31,11 @@ class HomeViewController: UIViewController {
         
         homeView.activityIndicator.startAnimating()
         
-        title = "Repositórios iOS"
+        title = "iOS Repositories"
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+            navigationBar.tintColor = .black
+        }
         view = homeView
     }
     
@@ -72,6 +76,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             rows = vm.items.count
         case 1:
+            homeView.activityIndicator.stopAnimating()
             rows = vm.itemsCoreData.count
         default:
             break
@@ -119,8 +124,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch homeView.segmentedControl.selectedSegmentIndex {
         case 0:
+            second.isSavedData = false
             second.repo = vm.items[indexPath.row]
         case 1:
+            second.isSavedData = true
             second.repo = vm.itemsCoreData[indexPath.row]
         default:
             break

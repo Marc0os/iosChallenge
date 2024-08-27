@@ -8,9 +8,9 @@
 import Foundation
 
 struct Pull: Codable {
-    let id: Int
+    let id: Int32
     let htmlURL: String
-    let number: Int
+    let number: Int32
     let title: String
     let user: User
     let createdAt: String

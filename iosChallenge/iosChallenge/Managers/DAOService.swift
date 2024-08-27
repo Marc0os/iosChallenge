@@ -18,9 +18,9 @@ class DAOService {
         do {
             return try manager.context.fetch(request)
         } catch {
-            #if DEBUG
+#if DEBUG
             print("Error while retrieving projects: \(error.localizedDescription)")
-            #endif
+#endif
             return nil
         }
     }
@@ -43,22 +43,28 @@ class DAOService {
         guard let entities = getRepoEntities() else { return [] }
         
         return entities.map { entity in
-            Item(id: entity.id,
-                 name: entity.name!,
-                 fullname: entity.fullname!,
-                 owner: Owner(login: entity.owner!, avatarURL: entity.avatarURL!),
-                 htmlURL: entity.htmlURL ?? "",
-                 description: entity.descriptionText!,
-                 createdAt: entity.createdAt!,
-                 updatedAt: entity.updatedAt!,
-                 watchersCount: entity.watchersCount,
-                 forksCount: entity.forksCount,
-                 topics: [entity.topics!]
+            
+            let pullEntities = entity.pulls?.allObjects as? [PullEntity] ?? []
+            
+            let topics = (entity.topics ?? "[]").data(using: .utf8)
+            let topicsArray = (try? JSONSerialization.jsonObject(with: topics!, options: [])) as? [String] ?? []
+            
+            return Item(id: entity.id,
+                        name: entity.name!,
+                        fullname: entity.fullname!,
+                        owner: Owner(login: entity.owner!, avatarURL: entity.avatarURL!),
+                        htmlURL: entity.htmlURL ?? "",
+                        description: entity.descriptionText!,
+                        createdAt: entity.createdAt!,
+                        pushedAt: entity.pushedAt!,
+                        watchersCount: entity.watchersCount,
+                        forksCount: entity.forksCount,
+                        topics: topicsArray
             )
         }
     }
     
-    func createRepo(item: Item) {
+    func createRepo(item: Item, pulls: [Pull]) {
         let repo = RepoEntity(context: manager.context)
         repo.id = item.id
         repo.name = item.name
@@ -68,13 +74,44 @@ class DAOService {
         repo.htmlURL = repo.htmlURL
         repo.descriptionText = item.description
         repo.createdAt = item.createdAt
-        repo.updatedAt = item.updatedAt
+        repo.pushedAt = item.pushedAt
         repo.watchersCount = item.watchersCount
         repo.forksCount = item.forksCount
-        repo.topics = "\(item.topics)"
+        let topicsData = try? JSONSerialization.data(withJSONObject: item.topics, options: [])
+        repo.topics = String(data: topicsData!, encoding: .utf8) ?? "[]"
         
+        let pullEntities = pulls.map { pull in
+            let pullEntity = PullEntity(context: manager.context)
+            pullEntity.id = pull.id
+            pullEntity.title = pull.title
+            pullEntity.number = pull.number
+            pullEntity.htmlURL = pull.htmlURL
+            pullEntity.user = pull.user.login
+            pullEntity.avatarURL = pull.user.avatarURL
+            pullEntity.createdAt = pull.createdAt
+            
+            pullEntity.repo = repo
+            return pullEntity
+        }
+        repo.addToPulls(NSSet(array: pullEntities))
         manager.save()
     }
+    
+    func getPullsByRepoID(repoID: Int32) -> [Pull]? {
+            guard let repo = getRepoById(id: repoID) else { return nil }
+            
+            let pullEntities = repo.pulls?.allObjects as? [PullEntity] ?? []
+            
+            let pulls = pullEntities.map { pullEntity in
+                Pull(id: pullEntity.id,
+                     htmlURL: pullEntity.htmlURL!,
+                     number: pullEntity.number,
+                     title: pullEntity.title!,
+                     user: User(login: pullEntity.user!, avatarURL: pullEntity.avatarURL!),
+                     createdAt: pullEntity.createdAt!)
+            }
+            return pulls
+        }
     
     func deleteRepoByID(id: Int32) {
         guard let repo = getRepoById(id: id) else { return }
@@ -82,159 +119,4 @@ class DAOService {
         manager.context.delete(repo)
         manager.save()
     }
-//    
-//    func updateCompositionName(compositionID id: UUID, newName: String) {
-//        guard let project = getProjectById(id: id) else { return }
-//        
-//        project.name = newName
-//        manager.save()
-//    }
-//    
-//    // MARK: - Version utility functions
-//    private func getVersionEntities() -> [VersionEntity]? {
-//        let request: NSFetchRequest<VersionEntity> = VersionEntity.fetchRequest()
-//
-//        do {
-//            return try manager.context.fetch(request)
-//        } catch {
-//            #if DEBUG
-//            print("Error while retrieving versions: \(error.localizedDescription)")
-//            #endif
-//            return nil
-//        }
-//    }
-//    
-//    private func getVersionEntityByID(id: UUID) -> VersionEntity? {
-//        guard let versions = getVersionEntities() else { return nil }
-//        return versions.first(where: { $0.id == id })
-//    }
-//
-//    func getCompositionVersionsByCompositionID(compositionID: UUID) -> [Version] {
-//        guard let versions = getVersionEntities() else { return [] }
-//        
-//        let compositionVersions = versions.filter { version in
-//            return version.project?.id == compositionID
-//        }
-//
-//        return compositionVersions.map { version in
-//            Version(id: version.id!,
-//                    name: version.version!)
-//        }
-//    }
-//    
-//    func createVersionWithCompositionID(name: String, compositionID: UUID, parts: [Part]) {
-//        guard let project = getProjectById(id: compositionID) else { return }
-//        
-//        // Setting up Version
-//        let version = VersionEntity(context: manager.context)
-//        version.id = UUID()
-//        version.version = name
-//        version.project = project
-//        
-//        // Creating Composition Parts
-//        let compositionParts: [PartEntity] = parts.map { part in
-//            let currentPart = PartEntity(context: manager.context)
-//            currentPart.id = UUID()
-//            currentPart.index = Int32(part.index)
-//            currentPart.version = version
-//            currentPart.type = part.type
-//            currentPart.lyric = part.lyrics
-//            
-//            return currentPart
-//        }
-//
-//        version.parts = NSSet(array: compositionParts)
-//        
-//        manager.save()
-//    }
-
-//    func deleteVersionByID(versionID: UUID) {
-//        guard let version = getVersionEntityByID(id: versionID) else { return }
-//        
-//        manager.context.delete(version)
-//        manager.save()
-//    }
-//    
-//    // MARK: - Parts utility functions
-//    private func getPartEntities() -> [PartEntity]? {
-//        let request: NSFetchRequest<PartEntity> = PartEntity.fetchRequest()
-//        
-//        do {
-//            return try manager.context.fetch(request)
-//        } catch {
-//            #if DEBUG
-//            print("Error while retrieving parts: \(error.localizedDescription)")
-//            #endif
-//            return nil
-//        }
-//    }
-//    
-//    private func getPartByID(id: UUID) -> PartEntity? {
-//        guard let parts = getPartEntities() else { return nil }
-//        return parts.first(where: { $0.id == id })
-//    }
-//    
-//    func getPartsByVersionID(versionID: UUID) -> [Part] {
-//        guard let parts = getPartEntities() else { return [] }
-//        
-//        let versionParts = parts.filter { part in
-//            return part.version?.id == versionID
-//        }
-//
-//        return versionParts.map { part in
-//            Part(id: part.id!,
-//                 index: Int(part.index),
-//                 type: part.type ?? "",
-//                 lyrics: part.lyric ?? "")
-//        }
-//    }
-//    
-//    func updateCompositionPartsByVersionID(versionID: UUID, parts: [Part]) {
-//        guard let version = getVersionEntityByID(id: versionID) else { return }
-//        
-//        let versionEntityParts: [PartEntity] = parts.map { part in
-//            let entityPart = PartEntity(context: manager.context)
-//            entityPart.id = part.id
-//            entityPart.index = Int32(part.index)
-//            entityPart.type = part.type
-//            entityPart.lyric = part.lyrics
-//            entityPart.version = version
-//            
-//            return entityPart
-//        }
-//        
-//        version.parts = NSSet(array: versionEntityParts)
-//        
-//        manager.save()
-//    }
-//    
-//    func updatePartByID(partID: UUID, index: Int, type: String, lyric: String) {
-//        guard let part = getPartByID(id: partID) else { return }
-//
-//        part.index = Int32(index)
-//        part.type = type
-//        part.lyric = lyric
-//        
-//        manager.save()
-//    }
-//
-//    func createPartByVersionID(index: Int, type: String, lyric: String, versionID: UUID) {
-//        guard let version = getVersionEntityByID(id: versionID) else { return }
-//        
-//        let part = PartEntity(context: manager.context)
-//        part.id = UUID()
-//        part.index = Int32(index)
-//        part.type = type
-//        part.lyric = lyric
-//        part.version = version
-//        
-//        manager.save()
-//    }
-//    
-//    func deletePartByID(partID: UUID) {
-//        guard let part = getPartByID(id: partID) else { return }
-//        
-//        manager.context.delete(part)
-//        manager.save()
-//    }
 }

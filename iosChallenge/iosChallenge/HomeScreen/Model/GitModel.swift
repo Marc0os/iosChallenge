@@ -24,7 +24,7 @@ struct Item: Codable {
     let owner: Owner
     let htmlURL: String
     let description: String
-    let createdAt, updatedAt: String
+    let createdAt, pushedAt: String
     let watchersCount: Int32
     let forksCount: Int32
     let topics: [String]
@@ -36,7 +36,7 @@ struct Item: Codable {
         case htmlURL = "html_url"
         case description
         case createdAt = "created_at"
-        case updatedAt = "updated_at"
+        case pushedAt = "pushed_at"
         case watchersCount = "watchers_count"
         case forksCount = "forks_count"
         case topics
