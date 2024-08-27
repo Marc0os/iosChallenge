@@ -10,6 +10,8 @@ import Foundation
 class MoreInfoViewModel {
     var pulls = [Pull]()
     
+    private let service = DAOService()
+    
     func getPulls (owner: String, repository: String, completion: @escaping () -> Void){
         let urlString = "/repos/\(owner)/\(repository)/pulls"
         
@@ -19,5 +21,17 @@ class MoreInfoViewModel {
                 completion()
             }
         }
+    }
+    
+    func createRepo (item: Item) {
+        service.createRepo(item: item)
+    }
+    
+    func existRepo (id: Int32) -> Bool {
+        return service.existRepoById(id: id)
+    }
+    
+    func deleteRepo (id: Int32) {
+        return service.deleteRepoByID(id: id)
     }
 }

@@ -25,11 +25,10 @@ struct Pull: Codable {
 
 struct User: Codable{
     let login: String
-    let id: Int
     let avatarURL: String
     
     enum CodingKeys: String, CodingKey{
-        case login, id
+        case login
         case avatarURL = "avatar_url"
     }
 }

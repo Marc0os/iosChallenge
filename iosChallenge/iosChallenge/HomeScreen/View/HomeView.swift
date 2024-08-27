@@ -31,7 +31,7 @@ class HomeView: UIView, ViewCode {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.register(GitTableViewCell.self, forCellReuseIdentifier: "GitCell")
-        
+        view.showsVerticalScrollIndicator = false
         return view
     }()
         
