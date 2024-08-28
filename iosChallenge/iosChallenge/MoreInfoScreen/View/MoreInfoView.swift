@@ -23,21 +23,7 @@ class MoreInfoView: UIView, ViewCode {
         view.addSubview(ownerLabel)
         view.addSubview(ownerStack)
         view.addSubview(pullsLabel)
-        view.addSubview(tablePulls)
-        view.addSubview(placeholder)
         
-        return view
-    }()
-
-    // MARK: - Placeholder
-    
-    lazy var placeholder: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = "There's no pulls yet"
-        view.font = .systemFont(ofSize: 22, weight: .heavy)
-        view.lineBreakMode = .byTruncatingTail
-        view.textColor = .gray
         return view
     }()
     
@@ -358,35 +344,17 @@ class MoreInfoView: UIView, ViewCode {
     }()
     
     lazy var tablePulls: UITableView = {
-//        let view = UITableView(frame: .zero, style: .grouped)
-        let view = UITableView()
+        let view = UITableView(frame: .zero, style: .grouped)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.register(PullTableViewCell.self, forCellReuseIdentifier: "PullCell")
-        view.isHidden = true
-//        view.tableHeaderView = mainView
+        view.register(NoPullTableViewCell.self, forCellReuseIdentifier: "NoPullCell")
+        view.showsVerticalScrollIndicator = false
+        view.tableHeaderView = mainView
         return view
     }()
     
-    
-    
-    
-    
-//    
-//    
-//    
-//    lazy var scrollView: UIScrollView = {
-//        let view = UIScrollView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.showsVerticalScrollIndicator = false
-//        return view
-//    }()
-//    
-    
-    
-    
-
-    
+    // MARK: - Activity indicator
     lazy var activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(frame: CGRectMake(0, 0, 40, 40))
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -407,7 +375,7 @@ class MoreInfoView: UIView, ViewCode {
     
     func setupHierarchy() {
         backgroundColor = .white
-        addSubview(mainView)
+        addSubview(tablePulls)
         
         addSubview(activityIndicator)
     }
@@ -416,19 +384,16 @@ class MoreInfoView: UIView, ViewCode {
         NSLayoutConstraint.activate([
             mainView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             mainView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            mainView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            mainView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            mainView.topAnchor.constraint(equalTo: tablePulls.topAnchor),
+            mainView.bottomAnchor.constraint(equalTo: pullsLabel.bottomAnchor, constant: 16),
             
             saveButton.widthAnchor.constraint(equalToConstant: 90),
             deleteButton.widthAnchor.constraint(equalToConstant: 90),
             
-            headerStack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
-            headerStack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-            headerStack.topAnchor.constraint(equalTo: mainView.topAnchor),
+            headerStack.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            headerStack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            headerStack.topAnchor.constraint(equalTo: tablePulls.topAnchor),
             headerStack.heightAnchor.constraint(equalToConstant: 45),
-//            repoName.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -16),
-//            fullName.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
-//            fullName.topAnchor.constraint(equalTo: repoName.bottomAnchor, constant: 4),
             
             forkImage.widthAnchor.constraint(equalToConstant: 18),
             forkImage.heightAnchor.constraint(equalTo: forkImage.widthAnchor, multiplier: 1),
@@ -452,7 +417,6 @@ class MoreInfoView: UIView, ViewCode {
             createUpdateStack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             createUpdateStack.topAnchor.constraint(equalTo: topicsStack.bottomAnchor, constant: 16),
             
-            
             ownerLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             ownerLabel.topAnchor.constraint(equalTo: createUpdateStack.bottomAnchor, constant: 16),
             ownerImage.widthAnchor.constraint(equalToConstant: 40),
@@ -462,18 +426,11 @@ class MoreInfoView: UIView, ViewCode {
             
             pullsLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 16),
             pullsLabel.topAnchor.constraint(equalTo: ownerStack.bottomAnchor, constant: 16),
-            tablePulls.topAnchor.constraint(equalTo: pullsLabel.bottomAnchor),
+            
+            tablePulls.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             tablePulls.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             tablePulls.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             tablePulls.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            
-//            tablePulls.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-//            tablePulls.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-//            tablePulls.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-//            tablePulls.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            
-            placeholder.topAnchor.constraint(equalTo: pullsLabel.bottomAnchor, constant: 16),
-            placeholder.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
             activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor)

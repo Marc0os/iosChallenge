@@ -43,9 +43,7 @@ class DAOService {
         guard let entities = getRepoEntities() else { return [] }
         
         return entities.map { entity in
-            
-            let pullEntities = entity.pulls?.allObjects as? [PullEntity] ?? []
-            
+                        
             let topics = (entity.topics ?? "[]").data(using: .utf8)
             let topicsArray = (try? JSONSerialization.jsonObject(with: topics!, options: [])) as? [String] ?? []
             
@@ -98,20 +96,20 @@ class DAOService {
     }
     
     func getPullsByRepoID(repoID: Int32) -> [Pull]? {
-            guard let repo = getRepoById(id: repoID) else { return nil }
-            
-            let pullEntities = repo.pulls?.allObjects as? [PullEntity] ?? []
-            
-            let pulls = pullEntities.map { pullEntity in
-                Pull(id: pullEntity.id,
-                     htmlURL: pullEntity.htmlURL!,
-                     number: pullEntity.number,
-                     title: pullEntity.title!,
-                     user: User(login: pullEntity.user!, avatarURL: pullEntity.avatarURL!),
-                     createdAt: pullEntity.createdAt!)
-            }
-            return pulls
+        guard let repo = getRepoById(id: repoID) else { return nil }
+        
+        let pullEntities = repo.pulls?.allObjects as? [PullEntity] ?? []
+        
+        let pulls = pullEntities.map { pullEntity in
+            Pull(id: pullEntity.id,
+                 htmlURL: pullEntity.htmlURL!,
+                 number: pullEntity.number,
+                 title: pullEntity.title!,
+                 user: User(login: pullEntity.user!, avatarURL: pullEntity.avatarURL!),
+                 createdAt: pullEntity.createdAt!)
         }
+        return pulls
+    }
     
     func deleteRepoByID(id: Int32) {
         guard let repo = getRepoById(id: id) else { return }

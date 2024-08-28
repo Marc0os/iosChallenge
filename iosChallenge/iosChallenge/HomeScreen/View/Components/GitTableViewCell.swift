@@ -16,8 +16,7 @@ class GitTableViewCell: UITableViewCell, ViewCode {
         view.clipsToBounds = true
         view.contentMode = .scaleAspectFill
         view.backgroundColor = .white
-        
-        
+
         return view
     }()
     
@@ -73,5 +72,4 @@ class GitTableViewCell: UITableViewCell, ViewCode {
             userName.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 10)
         ])
     }
-    
 }

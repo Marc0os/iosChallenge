@@ -47,11 +47,9 @@ struct Item: Codable {
 struct Owner: Codable {
     let login: String // lista de pulls: {owner}
     let avatarURL: String
-//    let htmlURL: String // meybe
     
     enum CodingKeys: String, CodingKey{
         case login
         case avatarURL = "avatar_url"
-//        case htmlURL = "html_url"
     }
 }
