@@ -18,7 +18,7 @@ class MoreInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .light
         setupScreen()
         loadData()
     }
