@@ -20,9 +20,9 @@ class HomeViewModel {
         return NetworkManager.shared.fetchReposData(urlString: urlString) { items, error in
             if let items {
                 
-                if page == 1{
+                if page == 1 {
                     self.items = items
-                }else{
+                } else {
                     self.items.append(contentsOf: items)
                 }
                 

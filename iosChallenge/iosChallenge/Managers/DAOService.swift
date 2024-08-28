@@ -34,7 +34,7 @@ class DAOService {
         guard let projects = getRepoEntities() else { return false }
         if projects.first(where: { $0.id == id }) != nil {
             return true
-        }else{
+        } else {
             return false
         }
     }

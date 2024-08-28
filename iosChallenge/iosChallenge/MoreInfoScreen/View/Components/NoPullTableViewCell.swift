@@ -40,5 +40,4 @@ class NoPullTableViewCell: UITableViewCell, ViewCode {
             placeholder.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
-
 }

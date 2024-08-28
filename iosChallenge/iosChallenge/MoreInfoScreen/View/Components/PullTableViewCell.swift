@@ -117,6 +117,5 @@ class PullTableViewCell: UITableViewCell, ViewCode {
             userName.widthAnchor.constraint(equalToConstant: 140)
         ])
     }
-    
 }
 

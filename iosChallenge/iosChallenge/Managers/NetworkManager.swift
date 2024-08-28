@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkManager{
+class NetworkManager {
     
     static let shared = NetworkManager()
     
@@ -21,7 +21,6 @@ class NetworkManager{
             
             if let data {
                 let dataModel = try? JSONDecoder().decode(GitModel.self, from: data)
-                print()
                 completion(dataModel?.items, nil)
             } else {
                 completion(nil, "Error")

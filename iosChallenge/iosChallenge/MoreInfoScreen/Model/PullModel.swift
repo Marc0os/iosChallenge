@@ -15,7 +15,7 @@ struct Pull: Codable {
     let user: User
     let createdAt: String
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case id
         case htmlURL = "html_url"
         case number, title, user
@@ -23,11 +23,11 @@ struct Pull: Codable {
     }
 }
 
-struct User: Codable{
+struct User: Codable {
     let login: String
     let avatarURL: String
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case login
         case avatarURL = "avatar_url"
     }

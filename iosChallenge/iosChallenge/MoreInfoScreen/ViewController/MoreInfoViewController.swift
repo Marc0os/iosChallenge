@@ -23,7 +23,7 @@ class MoreInfoViewController: UIViewController {
         loadData()
     }
     
-    func setupScreen(){
+    func setupScreen() {
         moreInfoView.activityIndicator.startAnimating()
         
         moreInfoView.tablePulls.delegate = self
@@ -49,8 +49,8 @@ class MoreInfoViewController: UIViewController {
         
     }
     
-    func loadData(){
-        if isSavedData{
+    func loadData() {
+        if isSavedData {
             vm.getPullsCoreData(repoID: repo!.id)
             DispatchQueue.main.async {
                 self.moreInfoView.tablePulls.reloadData()
@@ -74,12 +74,12 @@ class MoreInfoViewController: UIViewController {
         if let date = ISO8601DateFormatter().date(from: dateString) {
             let formattedDateString = outputFormatter.string(from: date)
             return formattedDateString
-        }else{
+        } else {
             return "Invalid date"
         }
     }
     
-    func formatTopics(topicsArray: [String]?) -> String{
+    func formatTopics(topicsArray: [String]?) -> String {
         if let topics = topicsArray, !topics.isEmpty {
             let topicsString = topics.joined(separator: ", ")
             return topicsString
@@ -89,7 +89,7 @@ class MoreInfoViewController: UIViewController {
     }
     
     @objc
-    func saveRepo(){
+    func saveRepo() {
         vm.createRepo(item: self.repo!, pulls: vm.pulls)
         
         notifyChanges()
@@ -97,19 +97,19 @@ class MoreInfoViewController: UIViewController {
     }
     
     @objc
-    func removeRepo(){
+    func removeRepo() {
         vm.deleteRepo(id: self.repo!.id)
         
         notifyChanges()
         changeButton()
     }
     
-    func changeButton(){
+    func changeButton() {
         self.moreInfoView.deleteButton.isHidden = self.vm.existRepo(id: self.repo!.id) ? false : true
         self.moreInfoView.saveButton.isHidden = self.vm.existRepo(id: self.repo!.id) ? true : false
     }
     
-    func notifyChanges(){
+    func notifyChanges() {
         NotificationCenter.default.post(name: Notification.Name("DatabaseChanged"), object: nil)
     }
     
@@ -119,19 +119,18 @@ class MoreInfoViewController: UIViewController {
     }
 }
 
-extension MoreInfoViewController: UITableViewDelegate, UITableViewDataSource{
+extension MoreInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if vm.pulls.count == 0 && vm.pullsCoreData.count == 0 {
             return 1
-        }else{
-            if isSavedData{
+        } else {
+            if isSavedData {
                 return vm.pullsCoreData.count
-            }else{
+            } else {
                 return vm.pulls.count
             }
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,13 +140,13 @@ extension MoreInfoViewController: UITableViewDelegate, UITableViewDataSource{
             cell.selectionStyle = .none
             return cell
             
-        }else {
+        } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PullCell", for: indexPath) as! PullTableViewCell
             let pullCell: Pull
             
-            if isSavedData{
+            if isSavedData {
                 pullCell = vm.pullsCoreData[indexPath.row]
-            }else{
+            } else {
                 pullCell = vm.pulls[indexPath.row]
             }
             

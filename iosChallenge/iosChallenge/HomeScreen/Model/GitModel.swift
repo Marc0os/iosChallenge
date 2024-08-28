@@ -11,7 +11,7 @@ struct GitModel: Codable {
     let totalCount: Int
     let items: [Item]
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
         case items
     }
@@ -29,7 +29,7 @@ struct Item: Codable {
     let forksCount: Int32
     let topics: [String]
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case id, name
         case fullname = "full_name"
         case owner
@@ -48,7 +48,7 @@ struct Owner: Codable {
     let login: String // lista de pulls: {owner}
     let avatarURL: String
     
-    enum CodingKeys: String, CodingKey{
+    enum CodingKeys: String, CodingKey {
         case login
         case avatarURL = "avatar_url"
     }

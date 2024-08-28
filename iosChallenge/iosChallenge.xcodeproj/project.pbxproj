@@ -13,6 +13,7 @@
 		0D55000D2C7CD6C9006E16A3 /* RepoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D55000B2C7CD6C9006E16A3 /* RepoModel.xcdatamodeld */; };
 		0D55000F2C7CD9CC006E16A3 /* DAOService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D55000E2C7CD9CC006E16A3 /* DAOService.swift */; };
 		0D5500112C7E941D006E16A3 /* NoPullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5500102C7E941D006E16A3 /* NoPullTableViewCell.swift */; };
+		0D5500192C7ED5E4006E16A3 /* iosChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5500182C7ED5E4006E16A3 /* iosChallengeTests.swift */; };
 		0D55FFCA2C794573006E16A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D55FFC92C794573006E16A3 /* AppDelegate.swift */; };
 		0D55FFCC2C794573006E16A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D55FFCB2C794573006E16A3 /* SceneDelegate.swift */; };
 		0D55FFCE2C794573006E16A3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D55FFCD2C794573006E16A3 /* HomeViewController.swift */; };
@@ -30,6 +31,16 @@
 		0D55FFFD2C7BE581006E16A3 /* PullModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D55FFFC2C7BE581006E16A3 /* PullModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0D55001A2C7ED5E4006E16A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0D55FFBE2C794572006E16A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0D55FFC52C794573006E16A3;
+			remoteInfo = iosChallenge;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0D5500002C7BE9E6006E16A3 /* MoreInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoViewModel.swift; sourceTree = "<group>"; };
 		0D5500032C7C223F006E16A3 /* PullTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullTableViewCell.swift; sourceTree = "<group>"; };
@@ -37,6 +48,8 @@
 		0D55000C2C7CD6C9006E16A3 /* RepoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RepoModel.xcdatamodel; sourceTree = "<group>"; };
 		0D55000E2C7CD9CC006E16A3 /* DAOService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAOService.swift; sourceTree = "<group>"; };
 		0D5500102C7E941D006E16A3 /* NoPullTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPullTableViewCell.swift; sourceTree = "<group>"; };
+		0D5500162C7ED5E4006E16A3 /* iosChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D5500182C7ED5E4006E16A3 /* iosChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosChallengeTests.swift; sourceTree = "<group>"; };
 		0D55FFC62C794573006E16A3 /* iosChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D55FFC92C794573006E16A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D55FFCB2C794573006E16A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +69,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0D5500132C7ED5E4006E16A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0D55FFC32C794573006E16A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,10 +105,19 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		0D5500172C7ED5E4006E16A3 /* iosChallengeTests */ = {
+			isa = PBXGroup;
+			children = (
+				0D5500182C7ED5E4006E16A3 /* iosChallengeTests.swift */,
+			);
+			path = iosChallengeTests;
+			sourceTree = "<group>";
+		};
 		0D55FFBD2C794572006E16A3 = {
 			isa = PBXGroup;
 			children = (
 				0D55FFC82C794573006E16A3 /* iosChallenge */,
+				0D5500172C7ED5E4006E16A3 /* iosChallengeTests */,
 				0D55FFC72C794573006E16A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				0D55FFC62C794573006E16A3 /* iosChallenge.app */,
+				0D5500162C7ED5E4006E16A3 /* iosChallengeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,6 +272,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0D5500152C7ED5E4006E16A3 /* iosChallengeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D55001C2C7ED5E4006E16A3 /* Build configuration list for PBXNativeTarget "iosChallengeTests" */;
+			buildPhases = (
+				0D5500122C7ED5E4006E16A3 /* Sources */,
+				0D5500132C7ED5E4006E16A3 /* Frameworks */,
+				0D5500142C7ED5E4006E16A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0D55001B2C7ED5E4006E16A3 /* PBXTargetDependency */,
+			);
+			name = iosChallengeTests;
+			productName = iosChallengeTests;
+			productReference = 0D5500162C7ED5E4006E16A3 /* iosChallengeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		0D55FFC52C794573006E16A3 /* iosChallenge */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D55FFDA2C794574006E16A3 /* Build configuration list for PBXNativeTarget "iosChallenge" */;
@@ -272,6 +320,10 @@
 				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					0D5500152C7ED5E4006E16A3 = {
+						CreatedOnToolsVersion = 15.1;
+						TestTargetID = 0D55FFC52C794573006E16A3;
+					};
 					0D55FFC52C794573006E16A3 = {
 						CreatedOnToolsVersion = 15.1;
 					};
@@ -294,11 +346,19 @@
 			projectRoot = "";
 			targets = (
 				0D55FFC52C794573006E16A3 /* iosChallenge */,
+				0D5500152C7ED5E4006E16A3 /* iosChallengeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0D5500142C7ED5E4006E16A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0D55FFC42C794573006E16A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -311,6 +371,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0D5500122C7ED5E4006E16A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D5500192C7ED5E4006E16A3 /* iosChallengeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0D55FFC22C794573006E16A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -338,6 +406,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0D55001B2C7ED5E4006E16A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0D55FFC52C794573006E16A3 /* iosChallenge */;
+			targetProxy = 0D55001A2C7ED5E4006E16A3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		0D55FFD42C794574006E16A3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -350,6 +426,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0D55001D2C7ED5E4006E16A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 83444286UZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.marcos.iosChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosChallenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iosChallenge";
+			};
+			name = Debug;
+		};
+		0D55001E2C7ED5E4006E16A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 83444286UZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.marcos.iosChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iosChallenge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iosChallenge";
+			};
+			name = Release;
+		};
 		0D55FFD82C794574006E16A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -526,6 +638,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0D55001C2C7ED5E4006E16A3 /* Build configuration list for PBXNativeTarget "iosChallengeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D55001D2C7ED5E4006E16A3 /* Debug */,
+				0D55001E2C7ED5E4006E16A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0D55FFC12C794572006E16A3 /* Build configuration list for PBXProject "iosChallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

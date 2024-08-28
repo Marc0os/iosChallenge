@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
         setupScreen()
     }
     
-    func setupScreen(){
+    func setupScreen() {
         homeView.tableGit.dataSource = self
         homeView.tableGit.delegate = self
         
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc
-    func loadData(){
+    func loadData() {
         vm.getReposCoreData()
         isLoading = true
         dataTask = vm.getRepos(page: vm.currentPage) {
@@ -54,7 +54,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc
-    func updateTableView(){
+    func updateTableView() {
         homeView.tableGit.reloadData()
     }
     

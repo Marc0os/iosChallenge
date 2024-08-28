@@ -24,7 +24,7 @@ class MoreInfoViewModel {
         }
     }
     
-    func getPullsCoreData(repoID: Int32){
+    func getPullsCoreData(repoID: Int32) {
         pullsCoreData = service.getPullsByRepoID(repoID: repoID)!
     }
     
