@@ -137,14 +137,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.size.height
-        
-        if offsetY > contentHeight - height * 1.5 {
-            if !isLoading {
-                vm.currentPage += 1
-                loadData()
+       
+        if homeView.segmentedControl.selectedSegmentIndex == 0 {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            let height = scrollView.frame.size.height
+            
+            if offsetY > contentHeight - height * 1.5 {
+                if !isLoading {
+                    vm.currentPage += 1
+                    loadData()
+                }
             }
         }
     }
